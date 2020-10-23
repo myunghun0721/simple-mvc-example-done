@@ -19,7 +19,7 @@ const dogDedaultData = {
 
 // object for us to keep track of the last Cat we made and dynamically update it sometimes
 let lastAdded = new Cat(defaultData);
-let dogLastAdded = new Dog(dogDedaultData);
+const dogLastAdded = new Dog(dogDedaultData);
 
 // function to handle requests to the main page
 // controller functions in Express receive the full HTTP request
@@ -272,15 +272,19 @@ const searchDogName = (req, res) => {
       return res.json({ error: 'No dogs found' });
     }
 
-
     const dog = doc;
-    dog.age++;
+    dog.age += 1;
     const savePromise = doc.save();
-    savePromise.then(() => res.json({
-      name : doc.name,
-      breed : doc.breed,
-      age : doc.age
-    }))
+
+    savePromise.then(() => res.json(
+      {
+        name: dogLastAdded.name,
+        breed: dogLastAdded.breed,
+        age: dogLastAdded.age,
+      },
+    ));
+
+    return res.json({ name: doc.name, breed: doc.breed, age: doc.age });
   });
 };
 

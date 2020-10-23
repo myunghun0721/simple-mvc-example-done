@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 let DogModel = {};
 
 const DogSchema = new mongoose.Schema({
-  //data type
+  // data type
   name: {
     type: String,
     required: true,
