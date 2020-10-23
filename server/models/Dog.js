@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 let DogModel = {};
 
 const DogSchema = new mongoose.Schema({
+  //data type
   name: {
     type: String,
     required: true,
@@ -15,7 +16,7 @@ const DogSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-
+  // number can't be negative!
   age: {
     type: Number,
     min: 0,

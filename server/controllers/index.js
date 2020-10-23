@@ -221,10 +221,6 @@ const setDog = (req, res) => {
   const savePromise = newDog.save();
 
   savePromise.then(() => {
-    // set the lastAdded cat to our newest cat object.
-    // This way we can update it dynamically
-    dogLastAdded = newDog;
-    // return success
     res.json({ name: dogLastAdded.name, breed: dogLastAdded.breed, age: dogLastAdded.age });
   });
 
@@ -276,25 +272,15 @@ const searchDogName = (req, res) => {
       return res.json({ error: 'No dogs found' });
     }
 
-    // if a match, send the match back
 
-    dogLastAdded.age++;
-
-    // once you change all the object properties you want,
-    // then just call the Model object's save function
-    // create a new save promise for the database
-    const savePromise = dogLastAdded.save();
-
-    // send back the name as a success for now
-    savePromise.then(() => res.json(
-      {
-        name: dogLastAdded.name,
-        breed: dogLastAdded.breed,
-        age: dogLastAdded.age,
-      },
-    ));
-
-    return res.json({ name: doc.name, breed: doc.breed, age: doc.age });
+    const dog = doc;
+    dog.age++;
+    const savePromise = doc.save();
+    savePromise.then(() => res.json({
+      name : doc.name,
+      breed : doc.breed,
+      age : doc.age
+    }))
   });
 };
 
